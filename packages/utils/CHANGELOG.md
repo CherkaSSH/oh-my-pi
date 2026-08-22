@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed Mermaid ASCII rendering for left-to-right diagrams with subgraphs and routed edges. ([#9340](https://github.com/can1357/oh-my-pi/issues/9340))
+
 ## [18.1.13] - 2026-09-07
 
 ### Fixed
