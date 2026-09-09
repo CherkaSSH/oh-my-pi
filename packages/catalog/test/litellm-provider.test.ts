@@ -299,18 +299,18 @@ describe("LiteLLM provider discovery", () => {
 		expect(buildModel(spec).compat.supportsReasoningEffort).toBe(true);
 	});
 
-	test("uses model_info effort vocabulary and nullable defaults over alias and reference inference", async () => {
+	test("advertised effort vocabulary overrides incomplete params and reference inference", async () => {
 		const calls: string[] = [];
 		const groupModelInfo = {
 			supports_vision: false,
 			supports_reasoning: true,
-			supported_openai_params: ["reasoning_effort"],
+			supported_openai_params: ["tools", "temperature"],
 		};
 		const richModelInfo = {
 			supports_vision: false,
 			supports_reasoning: true,
 			reasoning_effort_levels: ["none", "low", "high", "max"],
-			supported_openai_params: ["reasoning_effort"],
+			supported_openai_params: ["tools", "temperature"],
 		};
 		const fetchMock: FetchImpl = vi.fn(async (input: string | URL | Request) => {
 			const url = inputUrl(input);
@@ -387,6 +387,10 @@ describe("LiteLLM provider discovery", () => {
 			defaultLevel: Effort.High,
 		});
 		expect(direct.thinking).toEqual({ ...expectedThinking, defaultLevel: null });
+		// The incomplete `supported_openai_params` (no `reasoning_effort`) must not
+		// suppress the wire dial: advertised effort levels are authoritative.
+		expect(buildModel(aliased).compat.supportsReasoningEffort).toBe(true);
+		expect(buildModel(direct).compat.supportsReasoningEffort).toBe(true);
 		expect(buildModel(direct).thinking?.defaultLevel).toBeNull();
 	});
 

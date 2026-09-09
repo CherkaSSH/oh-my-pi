@@ -5714,10 +5714,10 @@ function mapLiteLLMRichEntry<TApi extends Api>(
 	const compat: OpenAICompat = {
 		supportsStore: false,
 		supportsDeveloperRole: false,
-		...(supportedOpenAIParams !== undefined
-			? { supportsReasoningEffort: supportedOpenAIParams.includes("reasoning_effort") }
-			: richThinking !== null
-				? { supportsReasoningEffort: true }
+		...(richThinking !== null
+			? { supportsReasoningEffort: true }
+			: supportedOpenAIParams !== undefined
+				? { supportsReasoningEffort: supportedOpenAIParams.includes("reasoning_effort") }
 				: referenceCompat?.supportsReasoningEffort !== undefined
 					? { supportsReasoningEffort: referenceCompat.supportsReasoningEffort }
 					: {}),
