@@ -185,6 +185,9 @@ describe("buildModel", () => {
 		expect(getBundledModel<"openai-completions">("zenmux", "google/gemini-3.8-flash").compat.toolSchemaFlavor).toBe(
 			"google-function",
 		);
+		expect(getBundledModel<"openrouter">("openrouter", "google/gemini-2.5-flash").compat.toolSchemaFlavor).toBe(
+			"google-function",
+		);
 	});
 
 	it("strips gateway author prefixes and extrinsic tags from display names", () => {

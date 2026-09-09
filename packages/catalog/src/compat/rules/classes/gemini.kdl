@@ -100,7 +100,7 @@ class "gemini" {
 	}
 	// OpenAI-compatible gateways translate tool parameters back into Google's
 	// legacy functionDeclaration schema, which requires a type on every node.
-	on-api "openai-completions" "openai-responses" {
+	on-api "openai-completions" "openai-responses" "openrouter" {
 		tool-schema-flavor "google-function"
 	}
 

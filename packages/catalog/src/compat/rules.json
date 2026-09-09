@@ -4843,7 +4843,8 @@
 				"class": "gemini",
 				"apis": [
 					"openai-completions",
-					"openai-responses"
+					"openai-responses",
+					"openrouter"
 				],
 				"wire": {
 					"toolSchemaFlavor": "google-function"

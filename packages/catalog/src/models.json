@@ -46224,7 +46224,7 @@
 		},
 		"cline-free/muse-spark-1.3-contributor": {
 			"id": "cline-free/muse-spark-1.3-contributor",
-			"name": "Muse Spark 1.3 (C) (free)",
+			"name": "Muse Spark 1.3 Contributor (free)",
 			"api": "openai-completions",
 			"provider": "cline-pass",
 			"baseUrl": "https://api.cline.bot/api/v1",
@@ -46240,7 +46240,7 @@
 				"cacheWrite": 0
 			},
 			"contextWindow": 1048576,
-			"maxTokens": 131072,
+			"maxTokens": 943718,
 			"identity": {
 				"class": "meta",
 				"family": "muse-spark",
@@ -80096,8 +80096,8 @@
 			},
 			"contextWindow": 400000,
 			"maxTokens": 128000,
-			"int": 37.5,
-			"tps": 87.4,
+			"int": 24.7,
+			"tps": 115.6,
 			"thinking": {
 				"mode": "effort",
 				"efforts": [
@@ -80187,8 +80187,8 @@
 			},
 			"contextWindow": 400000,
 			"maxTokens": 128000,
-			"int": 43.3,
-			"tps": 71.7,
+			"int": 30.4,
+			"tps": 77,
 			"thinking": {
 				"mode": "effort",
 				"efforts": [
@@ -80460,8 +80460,8 @@
 			},
 			"contextWindow": 400000,
 			"maxTokens": 128000,
-			"int": 25.8,
-			"tps": 105.9,
+			"int": 17.4,
+			"tps": 106.5,
 			"thinking": {
 				"mode": "effort",
 				"efforts": [
@@ -80671,8 +80671,8 @@
 			},
 			"contextWindow": 1000000,
 			"maxTokens": 128000,
-			"int": 38.8,
-			"tps": 36.7,
+			"int": 26.4,
+			"tps": 38,
 			"thinking": {
 				"mode": "budget",
 				"efforts": [
@@ -80793,8 +80793,8 @@
 			},
 			"contextWindow": 1000000,
 			"maxTokens": 128000,
-			"int": 36.8,
-			"tps": 43.7,
+			"int": 24.7,
+			"tps": 43.5,
 			"thinking": {
 				"mode": "budget",
 				"efforts": [
@@ -264623,6 +264623,8 @@
 				"priority": 2.5
 			},
 			"applyPatchToolType": "freeform",
+			"int": 52.8,
+			"tps": 54.3,
 			"compat": {
 				"supportsDeveloperRole": false,
 				"supportsStrictMode": false,
@@ -264678,8 +264680,6 @@
 				"emptyLengthFinishIsContextError": false,
 				"usesOpenAIToolCallIdLimit": false
 			},
-			"int": 52.8,
-			"tps": 54.3,
 			"supportsComputerUse": false
 		},
 		"gpt-daybreak-blue-latest": {
@@ -280094,6 +280094,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -280196,6 +280197,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -289443,6 +289445,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -289536,6 +289539,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -289640,6 +289644,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -289744,6 +289749,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -289846,6 +289852,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -289948,6 +289955,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290050,6 +290058,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290152,6 +290161,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290257,6 +290267,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290360,6 +290371,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290463,6 +290475,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290566,6 +290579,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290670,6 +290684,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290774,6 +290789,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290875,6 +290891,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -290976,6 +290993,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -291080,6 +291098,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -291175,6 +291194,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -291279,6 +291299,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -291384,6 +291405,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -291487,6 +291509,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -291590,6 +291613,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -291696,6 +291720,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -291802,6 +291827,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -291906,6 +291932,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -292010,6 +292037,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -292116,6 +292144,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -292220,6 +292249,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -292325,6 +292355,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -292428,6 +292459,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -292532,6 +292564,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -292634,6 +292667,7 @@
 				"isVercelGatewayHost": false,
 				"supportsStrictMode": true,
 				"toolStrictMode": "mixed",
+				"toolSchemaFlavor": "google-function",
 				"stripDeepseekSpecialTokens": false,
 				"streamMarkupHealingPattern": "thinking",
 				"reasoningDeltasMayBeCumulative": false,
@@ -297252,6 +297286,7 @@
 			},
 			"requiresGlyphTokenization": false,
 			"int": 62.1,
+			"tps": 229.5,
 			"compat": {
 				"supportsStore": true,
 				"supportsDeveloperRole": false,
@@ -297316,7 +297351,6 @@
 				"requiresReasoningOffJuiceInstruction": false,
 				"supportsReasoningSummary": true
 			},
-			"tps": 229.5,
 			"supportsComputerUse": false
 		},
 		"meta/muse-spark-1.3-contributor": {
@@ -312242,6 +312276,8 @@
 				"revision": "6.0.0"
 			},
 			"requiresGlyphTokenization": false,
+			"int": 52.8,
+			"tps": 54.3,
 			"compat": {
 				"supportsStore": true,
 				"supportsDeveloperRole": false,
@@ -312306,8 +312342,6 @@
 				"requiresReasoningOffJuiceInstruction": true,
 				"supportsReasoningSummary": true
 			},
-			"int": 52.8,
-			"tps": 54.3,
 			"supportsComputerUse": false
 		},
 		"openai/gpt-6-astra-pro": {
@@ -339132,7 +339166,7 @@
 				"cacheRead": 0,
 				"cacheWrite": 0
 			},
-			"contextWindow": 1310720,
+			"contextWindow": 1000000,
 			"maxTokens": 131072,
 			"identity": {
 				"class": "unknown"
@@ -339213,7 +339247,7 @@
 				"cacheRead": 0,
 				"cacheWrite": 0
 			},
-			"contextWindow": null,
+			"contextWindow": 1000000,
 			"maxTokens": null,
 			"identity": {
 				"class": "unknown"
@@ -339541,7 +339575,7 @@
 				"cacheRead": 0,
 				"cacheWrite": 0
 			},
-			"contextWindow": null,
+			"contextWindow": 1000000,
 			"maxTokens": null,
 			"identity": {
 				"class": "unknown"
@@ -340108,7 +340142,7 @@
 				"cacheRead": 0,
 				"cacheWrite": 0
 			},
-			"contextWindow": 65536,
+			"contextWindow": 262144,
 			"maxTokens": 32768,
 			"identity": {
 				"class": "unknown"
@@ -356653,6 +356687,7 @@
 				]
 			},
 			"int": 62.1,
+			"tps": 229.5,
 			"compat": {
 				"officialEndpoint": false,
 				"signingEndpoint": false,
@@ -356677,7 +356712,6 @@
 				"injectClaudeCodeInstruction": true,
 				"stripImageInput": false
 			},
-			"tps": 229.5,
 			"supportsComputerUse": false
 		},
 		"meta/muse-spark-1.3-contributor": {
@@ -362186,6 +362220,8 @@
 					"max"
 				]
 			},
+			"int": 52.8,
+			"tps": 54.3,
 			"compat": {
 				"officialEndpoint": false,
 				"signingEndpoint": false,
@@ -362210,8 +362246,6 @@
 				"injectClaudeCodeInstruction": true,
 				"stripImageInput": false
 			},
-			"int": 52.8,
-			"tps": 54.3,
 			"supportsComputerUse": false
 		},
 		"openai/gpt-6-astra-fast": {
@@ -384093,6 +384127,7 @@
 				]
 			},
 			"int": 62.1,
+			"tps": 229.5,
 			"compat": {
 				"supportsStore": true,
 				"supportsDeveloperRole": false,
@@ -384147,7 +384182,6 @@
 				"retryWithoutStrictOnGrammarError": false,
 				"supportsPromptCacheKey": false
 			},
-			"tps": 229.5,
 			"supportsComputerUse": false
 		},
 		"meta/muse-spark-1.3-contributor": {
@@ -389322,6 +389356,8 @@
 					"max"
 				]
 			},
+			"int": 52.8,
+			"tps": 54.3,
 			"compat": {
 				"supportsStore": true,
 				"supportsDeveloperRole": false,
@@ -389376,8 +389412,6 @@
 				"retryWithoutStrictOnGrammarError": false,
 				"supportsPromptCacheKey": false
 			},
-			"int": 52.8,
-			"tps": 54.3,
 			"supportsComputerUse": false
 		},
 		"openai/gpt-image-1.5": {
