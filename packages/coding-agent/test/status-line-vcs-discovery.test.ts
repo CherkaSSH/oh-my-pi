@@ -3,11 +3,11 @@ import * as path from "node:path";
 import type { VcsGitRepo, VcsGitRepoInfo, VcsRepo } from "@oh-my-pi/pi-natives";
 import * as vcs from "@oh-my-pi/pi-natives/vcs";
 import { getProjectDir, setProjectDir, TempDir } from "@oh-my-pi/pi-utils";
-import { $ } from "bun";
 import { Settings } from "../src/config/settings";
 import { StatusLineComponent } from "../src/modes/components/status-line";
 import { initTheme } from "../src/modes/theme/theme";
 import type { AgentSession } from "../src/session/agent-session";
+import { isolatedGit, isolatedGitCommit } from "./helpers/git-fixture";
 
 function fakeSession(): AgentSession {
 	const model = { id: "test-model", contextWindow: 200_000 };
@@ -157,13 +157,12 @@ describe("status line VCS discovery", () => {
 	it("clears the staged indicator after a same-branch commit", async () => {
 		using tempDir = TempDir.createSync("@omp-status-line-vcs-discovery-");
 		const cwd = tempDir.path();
-		await $`git init --initial-branch=main`.cwd(cwd).quiet();
-		await $`git config user.name "Test User"`.cwd(cwd).quiet();
-		await $`git config user.email "test@example.com"`.cwd(cwd).quiet();
+		await isolatedGit(cwd, "init", "--initial-branch=main");
 		await Bun.write(path.join(cwd, "tracked.txt"), "base\n");
-		await $`git add tracked.txt && git commit -m base`.cwd(cwd).quiet();
+		await isolatedGit(cwd, "add", "tracked.txt");
+		await isolatedGitCommit(cwd, "base");
 		await Bun.write(path.join(cwd, "tracked.txt"), "staged\n");
-		await $`git add tracked.txt`.cwd(cwd).quiet();
+		await isolatedGit(cwd, "add", "tracked.txt");
 
 		const originalProjectDir = getProjectDir();
 		const discoverRepo = vcs.repo;
@@ -207,7 +206,7 @@ describe("status line VCS discovery", () => {
 		try {
 			expect(await awaitStatusRead(component)).toContain("+1");
 
-			await $`git commit -m staged`.cwd(cwd).quiet();
+			await isolatedGitCommit(cwd, "staged");
 			expect(await Bun.file(headPath).text()).toBe(headBeforeCommit);
 			now += 1_000;
 
