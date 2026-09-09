@@ -9,9 +9,12 @@ import * as os from "node:os";
 import * as path from "node:path";
 import {
 	disableProvider,
-	disableUserSource,
 	enableProvider,
 	enableUserSource,
+	getDisabledProviders,
+	getEnabledProviders,
+	setDisabledProviders,
+	setEnabledProviders,
 } from "@oh-my-pi/pi-coding-agent/capability";
 import { clearCache as clearFsCache } from "@oh-my-pi/pi-coding-agent/capability/fs";
 import { clearClaudePluginRootsCache } from "@oh-my-pi/pi-coding-agent/discovery/helpers";
@@ -37,9 +40,13 @@ const OMP_PLUGIN_AGENT_MD = [
 describe("discoverAgents — claude-plugins provider gates", () => {
 	let tempHome: string;
 	let originalClaudeConfigDir: string | undefined;
+	let originalDisabledProviders: string[];
+	let originalEnabledProviders: string[];
 
 	beforeEach(() => {
 		originalClaudeConfigDir = process.env.CLAUDE_CONFIG_DIR;
+		originalDisabledProviders = getDisabledProviders();
+		originalEnabledProviders = getEnabledProviders();
 		delete process.env.CLAUDE_CONFIG_DIR;
 		delete Bun.env.CLAUDE_CONFIG_DIR;
 		tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "pi-agent-disco-home-"));
@@ -97,10 +104,7 @@ describe("discoverAgents — claude-plugins provider gates", () => {
 
 		// Start each test with a clean provider + cache state.
 		enableProvider("claude-plugins");
-		disableUserSource("claude-plugins");
-		disableUserSource("claude");
-		disableUserSource("*");
-		disableUserSource("all");
+		setEnabledProviders([]);
 		clearFsCache();
 		clearClaudePluginRootsCache();
 	});
@@ -110,11 +114,8 @@ describe("discoverAgents — claude-plugins provider gates", () => {
 		// Restore global state so other tests in the suite are not affected.
 		vi.restoreAllMocks();
 		restoreEnvValue("CLAUDE_CONFIG_DIR", originalClaudeConfigDir);
-		enableProvider("claude-plugins");
-		disableUserSource("claude-plugins");
-		disableUserSource("claude");
-		disableUserSource("*");
-		disableUserSource("all");
+		setDisabledProviders(originalDisabledProviders);
+		setEnabledProviders(originalEnabledProviders);
 		clearFsCache();
 		clearClaudePluginRootsCache();
 	});
