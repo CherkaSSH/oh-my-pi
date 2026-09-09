@@ -105,12 +105,15 @@ export async function discoverAgents(
 		orderedDirs.push({ dir: path.join(root.path, "agents"), source: root.level });
 	}
 
-	// Load agents from Claude Code marketplace plugins (respects disabledProviders and opt-in)
+	// Load agents from marketplace plugins. Only Claude's user registry is opt-in;
+	// OMP-installed and project-scoped roots remain enabled by default.
 	const claudePluginsUserEnabled = isUserSourceEnabled("claude-plugins") || isUserSourceEnabled("claude");
 	const { roots: pluginRoots } = isProviderEnabled("claude-plugins")
 		? await listClaudePluginRoots(home, resolvedCwd)
 		: { roots: [] };
-	const filteredPluginRoots = claudePluginsUserEnabled ? pluginRoots : pluginRoots.filter(r => r.scope === "project");
+	const filteredPluginRoots = claudePluginsUserEnabled
+		? pluginRoots
+		: pluginRoots.filter(root => root.scope === "project" || root.origin !== "claude");
 	const sortedPluginRoots = [...filteredPluginRoots].sort((a, b) => {
 		if (a.scope === b.scope) return 0;
 		return a.scope === "project" ? -1 : 1;

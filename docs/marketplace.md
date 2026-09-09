@@ -97,26 +97,26 @@ A marketplace catalog lives at `.omp-plugin/marketplace.json` in the repository 
 
 ```json
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "my-marketplace",
-  "owner": {
-    "name": "Your Name",
-    "email": "you@example.com"
-  },
-  "metadata": {
-    "description": "A collection of plugins",
-    "version": "1.0.0",
-    "pluginRoot": "plugins"
-  },
-  "plugins": [
-    {
-      "name": "my-plugin",
-      "description": "What this plugin does",
-      "source": "./my-plugin",
-      "category": "development",
-      "homepage": "https://github.com/you/my-plugin"
-    }
-  ]
+	"$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+	"name": "my-marketplace",
+	"owner": {
+		"name": "Your Name",
+		"email": "you@example.com"
+	},
+	"metadata": {
+		"description": "A collection of plugins",
+		"version": "1.0.0",
+		"pluginRoot": "plugins"
+	},
+	"plugins": [
+		{
+			"name": "my-plugin",
+			"description": "What this plugin does",
+			"source": "./my-plugin",
+			"category": "development",
+			"homepage": "https://github.com/you/my-plugin"
+		}
+	]
 }
 ```
 
@@ -132,26 +132,26 @@ Top-level `metadata.description`, `metadata.version`, and `metadata.pluginRoot` 
 
 ### Plugin entry fields
 
-| Field         | Required | Description                                                                                    |
-| ------------- | -------- | ---------------------------------------------------------------------------------------------- |
-| `name`        | yes      | Plugin name (same rules as marketplace name)                                                   |
-| `source`      | yes      | Where to find the plugin (see below)                                                           |
-| `description` | no       | Short description                                                                              |
-| `version`     | no       | Version string; install version falls back to plugin manifest, source SHA, then `0.0.0`        |
-| `author`      | no       | `{ name, email? }`                                                                             |
-| `homepage`    | no       | URL                                                                                            |
-| `repository`  | no       | Repository URL/string                                                                          |
-| `license`     | no       | License string                                                                                 |
-| `keywords`    | no       | Array of string keywords                                                                       |
-| `category`    | no       | Category string (e.g. `development`, `productivity`, `security`)                               |
-| `tags`        | no       | Array of string tags                                                                           |
-| `strict`      | no       | Boolean metadata flag; preserved but not used by install/runtime logic                         |
-| `commands`    | no       | Command metadata; preserved but runtime commands are discovered from the installed plugin tree |
-| `agents`      | no       | Agent metadata; preserved but not consumed by marketplace installation                         |
-| `hooks`       | no       | Hook metadata; preserved but runtime hooks are discovered from the installed plugin tree       |
-| `mcpServers`  | no       | MCP metadata; preserved here; runtime MCP configuration comes from the plugin manifest/tree    |
-| `lspServers`  | no       | Inline map or in-plugin path; copied to `.lsp.json` during installation                        |
-| `dapAdapters` | no       | Inline map or in-plugin JSON/YAML path; copied to `.dap.json`, `.dap.yaml`, or `.dap.yml`      |
+| Field         | Required | Description                                                                                        |
+| ------------- | -------- | -------------------------------------------------------------------------------------------------- |
+| `name`        | yes      | Plugin name (same rules as marketplace name)                                                       |
+| `source`      | yes      | Where to find the plugin (see below)                                                               |
+| `description` | no       | Short description                                                                                  |
+| `version`     | no       | Version string; install version falls back to plugin manifest, explicit source `sha`, then `0.0.0` |
+| `author`      | no       | `{ name, email? }`                                                                                 |
+| `homepage`    | no       | URL                                                                                                |
+| `repository`  | no       | Repository URL/string                                                                              |
+| `license`     | no       | License string                                                                                     |
+| `keywords`    | no       | Array of string keywords                                                                           |
+| `category`    | no       | Category string (e.g. `development`, `productivity`, `security`)                                   |
+| `tags`        | no       | Array of string tags                                                                               |
+| `strict`      | no       | Boolean metadata flag; preserved but not used by install/runtime logic                             |
+| `commands`    | no       | Command metadata; preserved but runtime commands are discovered from the installed plugin tree     |
+| `agents`      | no       | Agent metadata; preserved but not consumed by marketplace installation                             |
+| `hooks`       | no       | Hook metadata; preserved but runtime hooks are discovered from the installed plugin tree           |
+| `mcpServers`  | no       | MCP metadata; preserved here; runtime MCP configuration comes from the plugin manifest/tree        |
+| `lspServers`  | no       | Inline map or in-plugin path; copied to `.lsp.json` during installation                            |
+| `dapAdapters` | no       | Inline map or in-plugin JSON/YAML path; copied to `.dap.json`, `.dap.yaml`, or `.dap.yml`          |
 
 ### Plugin source formats
 
