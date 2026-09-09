@@ -178,16 +178,15 @@ describe("buildModel", () => {
 		expect(model.compat?.supportsStrictMode).toBe(true);
 	});
 
-	it("loads bundled OpenAI-compatible Gemini models with typed function schemas", () => {
-		expect(getBundledModel<"openai-completions">("github-copilot", "gemini-3.8-flash").compat.toolSchemaFlavor).toBe(
-			"google-function",
-		);
-		expect(getBundledModel<"openai-completions">("zenmux", "google/gemini-3.8-flash").compat.toolSchemaFlavor).toBe(
-			"google-function",
-		);
-		expect(getBundledModel<"openrouter">("openrouter", "google/gemini-2.5-flash").compat.toolSchemaFlavor).toBe(
-			"google-function",
-		);
+	it("selects the typed Google function schema flavor for Gemini across OpenAI-compatible adapters", () => {
+		expect(buildModel(completionsSpec({ id: "gemini-3.8-flash" })).compat.toolSchemaFlavor).toBe("google-function");
+		expect(buildModel(responsesSpec({ id: "gemini-3.8-flash" })).compat.toolSchemaFlavor).toBe("google-function");
+		expect(
+			buildModel(openrouterSpec({ id: "google/gemini-2.5-flash", name: "Gemini 2.5 Flash" })).compat
+				.toolSchemaFlavor,
+		).toBe("google-function");
+		// Non-Gemini models on the same adapters keep the host default.
+		expect(buildModel(completionsSpec()).compat.toolSchemaFlavor).toBeUndefined();
 	});
 
 	it("strips gateway author prefixes and extrinsic tags from display names", () => {
