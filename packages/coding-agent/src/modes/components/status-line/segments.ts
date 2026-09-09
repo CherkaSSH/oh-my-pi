@@ -58,13 +58,35 @@ function thinkingGlyph(display: string): string {
 	return space === -1 ? display : display.slice(0, space);
 }
 
-function stripDisplayRoot(pwd: string): string {
+/**
+ * Memoize a pure `path`-segment classifier keyed by input directory. Both
+ * callers below normalize paths through `fs.realpathSync` (via `pathIsWithin` /
+ * `relativePathWithinRoot`), and the `path` segment runs them on every painted
+ * frame, so the ~30fps working-spinner repaint loop performed a dozen-plus
+ * filesystem ops for an unchanging cwd (issue #10231). The result depends only
+ * on the input path and the constant root sets, so a per-path cache makes a
+ * stable status line do zero filesystem work; a cwd change recomputes. Bounded
+ * so alternating cwds cannot grow the cache without limit.
+ */
+function memoizePathClassifier<T>(compute: (pwd: string) => T): (pwd: string) => T {
+	const cache = new Map<string, T>();
+	return pwd => {
+		if (cache.has(pwd)) return cache.get(pwd) as T;
+		const value = compute(pwd);
+		if (cache.size >= 64) cache.clear();
+		cache.set(pwd, value);
+		return value;
+	};
+}
+
+/** Strip a known display root (`~/Projects`, `/work`) prefix from `pwd`. */
+const stripDisplayRoot = memoizePathClassifier((pwd: string): string => {
 	for (const root of [path.join(os.homedir(), "Projects"), "/work"]) {
 		const relative = relativePathWithinRoot(root, pwd);
 		if (relative) return relative;
 	}
 	return pwd;
-}
+});
 
 function normalizePremiumRequests(value: number): number {
 	return Math.round((value + Number.EPSILON) * 100) / 100;
@@ -106,14 +128,20 @@ const SCRATCH_ROOTS: readonly string[] = (() => {
 	return [...roots];
 })();
 
-function classifyProjectDir(pwd: string): { scratch: boolean; relative: string | null } {
+/**
+ * Whether `pwd` sits under a scratch root and its path relative to that root.
+ * Memoized by cwd: see {@link memoizePathClassifier} — the `path` segment calls
+ * this every painted frame and each {@link pathIsWithin} check runs
+ * `fs.realpathSync` twice per {@link SCRATCH_ROOTS} entry (issue #10231).
+ */
+const classifyProjectDir = memoizePathClassifier((pwd: string): { scratch: boolean; relative: string | null } => {
 	for (const root of SCRATCH_ROOTS) {
 		if (pathIsWithin(root, pwd)) {
 			return { scratch: true, relative: relativePathWithinRoot(root, pwd) };
 		}
 	}
 	return { scratch: false, relative: null };
-}
+});
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Segment Implementations

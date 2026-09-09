@@ -261,6 +261,30 @@ describe("status line path segment", () => {
 			removeSyncWithRetries(parentDir);
 		}
 	});
+	it("memoizes classification so a stable cwd repaints without filesystem work", () => {
+		const memoParent = path.join(originalProjectDir, ".wt");
+		fs.mkdirSync(memoParent, { recursive: true });
+		const dir = fs.mkdtempSync(path.join(memoParent, "omp-status-line-memo-"));
+		try {
+			setProjectDir(dir);
+			const realpathSpy = vi.spyOn(fs, "realpathSync");
+
+			const first = Bun.stripANSI(renderSegment("path", createPathContext()).content);
+			const coldCalls = realpathSpy.mock.calls.length;
+			// Cold classify normalizes the scratch roots + cwd through realpathSync.
+			expect(coldCalls).toBeGreaterThan(0);
+
+			const second = Bun.stripANSI(renderSegment("path", createPathContext()).content);
+			// Repainting an unchanging cwd (the ~30fps working-spinner loop, issue
+			// #10231) must hit zero filesystem operations: classification is memoized.
+			expect(realpathSpy.mock.calls.length).toBe(coldCalls);
+			expect(second).toBe(first);
+			expect(second).toContain(path.basename(dir));
+		} finally {
+			setProjectDir(originalProjectDir);
+			removeSyncWithRetries(dir);
+		}
+	});
 });
 
 describe("status line path segment in a linked worktree", () => {

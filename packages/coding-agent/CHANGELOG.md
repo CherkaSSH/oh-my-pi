@@ -11,7 +11,7 @@
 
 ### Fixed
 
-- Reduced idle CPU while waiting on a background job: the status line no longer re-runs native git repository discovery on every rendered frame ([#10231](https://github.com/can1357/oh-my-pi/issues/10231)).
+- Reduced idle CPU while a background job repaints the status line: the `path` segment no longer runs per-frame `realpathSync` scratch-root/display-root resolution, and the status line no longer re-runs native git repository discovery, on every rendered frame ([#10231](https://github.com/can1357/oh-my-pi/issues/10231)).
 
 ## [18.0.11] - 2026-08-29
 
