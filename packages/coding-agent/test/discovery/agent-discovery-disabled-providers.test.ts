@@ -137,6 +137,8 @@ describe("discoverAgents — claude-plugins provider gates", () => {
 		disableProvider("claude-plugins");
 		clearClaudePluginRootsCache();
 		const { agents } = await discoverAgents(tempHome, tempHome);
-		expect(agents.map(a => a.name)).not.toEqual(expect.arrayContaining(["claude-simplifier", "omp-simplifier"]));
+		const names = agents.map(agent => agent.name);
+		expect(names).not.toContain("claude-simplifier");
+		expect(names).not.toContain("omp-simplifier");
 	});
 });
