@@ -3,6 +3,7 @@ import * as path from "node:path";
 import { ThinkingLevel } from "@oh-my-pi/pi-agent-core";
 import { SPINNER_ADVANCE_MS, TERMINAL } from "@oh-my-pi/pi-tui";
 import { formatDuration, formatNumber, getProjectDir, pathIsWithin, relativePathWithinRoot } from "@oh-my-pi/pi-utils";
+import { LRUCache } from "@oh-my-pi/pi-utils/lru";
 import { type Theme, type ThemeColor, theme } from "../../../modes/theme/theme";
 import { shortenPath, TRUNCATE_LENGTHS, truncateToWidth } from "../../../tools/render-utils";
 import { fileHyperlink } from "../../../tui/hyperlink";
@@ -59,21 +60,30 @@ function thinkingGlyph(display: string): string {
 }
 
 /**
+ * Entry lifetime for {@link memoizePathClassifier}. Long enough that the ~30fps
+ * working-spinner repaint loop recomputes at most once per interval (vs. every
+ * frame), short enough that a cwd symlink atomically retargeted under a fixed
+ * lexical path — the one input that changes a classification without changing
+ * the key — is re-resolved promptly instead of being pinned forever.
+ */
+const PATH_CLASSIFICATION_TTL_MS = 5000;
+
+/**
  * Memoize a pure `path`-segment classifier keyed by input directory. Both
  * callers below normalize paths through `fs.realpathSync` (via `pathIsWithin` /
  * `relativePathWithinRoot`), and the `path` segment runs them on every painted
  * frame, so the ~30fps working-spinner repaint loop performed a dozen-plus
- * filesystem ops for an unchanging cwd (issue #10231). The result depends only
- * on the input path and the constant root sets, so a per-path cache makes a
- * stable status line do zero filesystem work; a cwd change recomputes. Bounded
- * so alternating cwds cannot grow the cache without limit.
+ * filesystem ops for an unchanging cwd (issue #10231). Because the result is
+ * `realpathSync`-derived it is cached with a short TTL rather than permanently:
+ * a stable status line does zero filesystem work between refreshes, yet a
+ * retargeted cwd symlink re-resolves within {@link PATH_CLASSIFICATION_TTL_MS}.
  */
-function memoizePathClassifier<T>(compute: (pwd: string) => T): (pwd: string) => T {
-	const cache = new Map<string, T>();
+function memoizePathClassifier<T extends string | object>(compute: (pwd: string) => T): (pwd: string) => T {
+	const cache = new LRUCache<string, T>({ max: 64, ttl: PATH_CLASSIFICATION_TTL_MS });
 	return pwd => {
-		if (cache.has(pwd)) return cache.get(pwd) as T;
+		const cached = cache.get(pwd);
+		if (cached !== undefined) return cached;
 		const value = compute(pwd);
-		if (cache.size >= 64) cache.clear();
 		cache.set(pwd, value);
 		return value;
 	};

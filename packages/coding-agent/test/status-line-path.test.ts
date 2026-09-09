@@ -261,12 +261,14 @@ describe("status line path segment", () => {
 			removeSyncWithRetries(parentDir);
 		}
 	});
-	it("memoizes classification so a stable cwd repaints without filesystem work", () => {
+	it("memoizes classification per cwd but revalidates after the TTL", () => {
 		const memoParent = path.join(originalProjectDir, ".wt");
 		fs.mkdirSync(memoParent, { recursive: true });
 		const dir = fs.mkdtempSync(path.join(memoParent, "omp-status-line-memo-"));
 		try {
 			setProjectDir(dir);
+			let clock = 1_000_000;
+			vi.spyOn(performance, "now").mockImplementation(() => clock);
 			const realpathSpy = vi.spyOn(fs, "realpathSync");
 
 			const first = Bun.stripANSI(renderSegment("path", createPathContext()).content);
@@ -276,10 +278,17 @@ describe("status line path segment", () => {
 
 			const second = Bun.stripANSI(renderSegment("path", createPathContext()).content);
 			// Repainting an unchanging cwd (the ~30fps working-spinner loop, issue
-			// #10231) must hit zero filesystem operations: classification is memoized.
+			// #10231) must hit zero filesystem operations within the TTL.
 			expect(realpathSpy.mock.calls.length).toBe(coldCalls);
 			expect(second).toBe(first);
 			expect(second).toContain(path.basename(dir));
+
+			// Past the TTL the classification is realpathSync-revalidated, so a cwd
+			// symlink atomically retargeted under a fixed lexical path cannot stay
+			// stale forever (PR #10235 review).
+			clock += 5_000 + 1;
+			renderSegment("path", createPathContext());
+			expect(realpathSpy.mock.calls.length).toBeGreaterThan(coldCalls);
 		} finally {
 			setProjectDir(originalProjectDir);
 			removeSyncWithRetries(dir);
