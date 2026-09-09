@@ -178,6 +178,15 @@ describe("buildModel", () => {
 		expect(model.compat?.supportsStrictMode).toBe(true);
 	});
 
+	it("loads bundled OpenAI-compatible Gemini models with typed function schemas", () => {
+		expect(getBundledModel<"openai-completions">("github-copilot", "gemini-3.8-flash").compat.toolSchemaFlavor).toBe(
+			"google-function",
+		);
+		expect(getBundledModel<"openai-completions">("zenmux", "google/gemini-3.8-flash").compat.toolSchemaFlavor).toBe(
+			"google-function",
+		);
+	});
+
 	it("strips gateway author prefixes and extrinsic tags from display names", () => {
 		const cases: [string, string][] = [
 			["Anthropic: Claude Opus 4.6 (Fast) ($$$$)", "Claude Opus 4.6 (Fast)"],
