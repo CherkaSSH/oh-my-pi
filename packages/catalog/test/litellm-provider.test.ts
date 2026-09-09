@@ -379,11 +379,15 @@ describe("LiteLLM provider discovery", () => {
 			efforts: [Effort.Minimal, Effort.Low, Effort.High, Effort.Max],
 			effortMap: { [Effort.Minimal]: "none" },
 		};
-		expect(specs?.find(model => model.id === "my-gateway/coding-pro")?.thinking).toEqual({
+		const aliased = specs?.find(model => model.id === "my-gateway/coding-pro");
+		const direct = specs?.find(model => model.id === "zai-org/GLM-5.3");
+		if (!aliased || !direct) throw new Error("expected both LiteLLM models");
+		expect(aliased.thinking).toEqual({
 			...expectedThinking,
 			defaultLevel: Effort.High,
 		});
-		expect(specs?.find(model => model.id === "zai-org/GLM-5.3")?.thinking).toEqual(expectedThinking);
+		expect(direct.thinking).toEqual({ ...expectedThinking, defaultLevel: null });
+		expect(buildModel(direct).thinking?.defaultLevel).toBeNull();
 	});
 
 	test("routes only OpenAI-backed rich models through Responses", async () => {

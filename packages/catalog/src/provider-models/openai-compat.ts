@@ -4063,7 +4063,7 @@ function toSyntheticStringList(value: unknown): readonly string[] {
  */
 function resolveWireEffortThinking(
 	wireEfforts: readonly string[],
-	defaultWireEffort?: string,
+	defaultWireEffort?: string | null,
 ): ThinkingConfig | undefined {
 	const efforts = THINKING_EFFORTS.filter(effort => wireEfforts.includes(effort));
 	const wireHasNone = wireEfforts.includes(WIRE_EFFORT_NONE);
@@ -4083,6 +4083,10 @@ function resolveWireEffortThinking(
 			efforts: [Effort.Minimal, ...efforts],
 			effortMap: { [Effort.Minimal]: WIRE_EFFORT_NONE },
 		};
+	}
+	if (defaultWireEffort === null) {
+		thinking.defaultLevel = null;
+		return thinking;
 	}
 	const defaultLevel =
 		defaultWireEffort === WIRE_EFFORT_NONE && wireHasNone
@@ -5556,12 +5560,12 @@ function mapLiteLLMThinking(entry: LiteLLMRichModelEntry): ThinkingConfig | null
 		return null;
 	}
 	const wireEfforts = value.flatMap(item => (typeof item === "string" ? [item] : []));
-	return (
-		resolveWireEffortThinking(
-			wireEfforts,
-			toNonEmptyString(getLiteLLMMetadataValue(entry, "default_reasoning_effort")),
-		) ?? null
-	);
+	const rawDefaultEffort =
+		entry.default_reasoning_effort !== undefined
+			? entry.default_reasoning_effort
+			: getLiteLLMModelInfo(entry)?.default_reasoning_effort;
+	const defaultWireEffort = rawDefaultEffort === null ? null : toNonEmptyString(rawDefaultEffort);
+	return resolveWireEffortThinking(wireEfforts, defaultWireEffort) ?? null;
 }
 
 function getLiteLLMProviders(entry: LiteLLMRichModelEntry): string[] | undefined {
